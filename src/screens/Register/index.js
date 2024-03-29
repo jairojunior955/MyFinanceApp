@@ -1,18 +1,17 @@
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
-//import { auth } from '../../config/firebaseconfig';
+import { auth } from '../../config/firebaseconfig';
 
 const Login = ({ setUser }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
     const [error, setError] = useState();
-    const [user, setUser] = useState(null);
-    const auth = getAuth();
     const handleLogin = () =>{
-        signInWithEmailAndPassword(auth, email, password)
+        createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
+            
             console.log(user);
             setUser(user);
         })
@@ -38,7 +37,7 @@ const Login = ({ setUser }) => {
         secureTextEntry
         style={styles.input}
       />
-      <Button title="Sign In" onPress={handleLogin} />
+      <Button title="Sign Up" onPress={handleLogin} />
       <Text>{error}</Text>
     </View>
     );
