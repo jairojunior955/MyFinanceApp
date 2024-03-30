@@ -7,13 +7,14 @@ const Login = ({ setUser }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState();
-    const [user, setUser] = useState(null);
+    const [message, setMessage] = useState('');
     const auth = getAuth();
     const handleLogin = () =>{
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
             console.log(user);
+            
             setUser(user);
         })
         .catch((error) => {
@@ -39,6 +40,7 @@ const Login = ({ setUser }) => {
         style={styles.input}
       />
       <Button title="Sign In" onPress={handleLogin} />
+      <Text>{message}</Text>
       <Text>{error}</Text>
     </View>
     );

@@ -3,16 +3,18 @@ import { useState } from 'react';
 import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
 import { auth } from '../../config/firebaseconfig';
 
-const Login = ({ setUser }) => {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+const Register = ({ setUser }) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState();
+    const [message, setMessage] = useState('');
     const handleLogin = () =>{
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
-            
+            setMessage('Faça login para acessar o aplicativo')
             console.log(user);
+            console.log(message)
             setUser(user);
         })
         .catch((error) => {
@@ -24,26 +26,27 @@ const Login = ({ setUser }) => {
     }
     return (
         <View style={styles.container}>
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
-      />
-      <Button title="Sign Up" onPress={handleLogin} />
-      <Text>{error}</Text>
-    </View>
+            <TextInput
+                placeholder="Email"
+                value={email}
+                onChangeText={setEmail}
+                style={styles.input}
+            />
+            <TextInput
+                placeholder="Password"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+                style={styles.input}
+            />
+            <Button title="Sign Up" onPress={handleLogin} />        
+            <Text>{error}</Text>
+            <Text>{message}</Text>
+        </View>
     );
 };
 
-export default Login;
+export default Register;
 
 const styles = StyleSheet.create({
     container: {
