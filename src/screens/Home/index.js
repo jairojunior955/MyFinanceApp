@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Button } from "react-native-web";
+import { View, Text, StyleSheet, Button } from "react-native";
 import { auth } from "../../config/firebaseconfig";
 import { onAuthStateChanged } from "firebase/auth";
 
 const HomeScreen = () => {
+  const [date, setDate] = useState(new Date())
   const handleAddExpense = () => {
     console.log("Adicionar Gasto");
   };
@@ -28,6 +28,13 @@ const HomeScreen = () => {
         <Button title="Adicionar Gasto" onPress={handleAddExpense} />
         <Button title="Ver Gasto" onPress={handleOpenExpenses}/>
       </View>
+      <Button
+        color="red"
+        title="Sair"
+        onPress={() => {
+          auth.signOut();
+        }}
+      />
     </View>
   );
 };

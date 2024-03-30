@@ -1,7 +1,6 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
-//import { auth } from '../../config/firebaseconfig';
 
 const Login = ({ setUser }) => {
     const [email, setEmail] = useState('');

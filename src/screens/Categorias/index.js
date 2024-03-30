@@ -1,8 +1,6 @@
 import { getDatabase, ref, child, get, set } from "firebase/database";
 import { useEffect, useState } from "react";
-import { Text } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-import { Button, Modal, StyleSheet, View } from "react-native-web";
+import { Button, Modal, StyleSheet, View, TextInput, Text  } from "react-native";
 import { auth } from "../../config/firebaseconfig";
 
 const Categorias = () => {
@@ -96,11 +94,10 @@ const Categorias = () => {
     <>
       <Button
         title="Adicionar Categoria"
-        color="green"
         onPress={() => handleSetModalVisible()}
       />
       <Text
-        style={{ fontSize: 32, fontWeight: "bold", alignContent: "center" }}
+        style={{ fontSize: 32, fontWeight: "bold", textAlign: "center" }}
       >
         {message}
       </Text>
@@ -108,7 +105,6 @@ const Categorias = () => {
         <Button
           title="Fechar"
           onPress={() => handleSetModalVisible()}
-          color="red"
         />
         <View style={styles.modal}>
           <Text style={{ fontWeight: "bold", fontSize: 32 }}>
@@ -122,7 +118,6 @@ const Categorias = () => {
           />
           <Button
             title="Adicionar Categoria"
-            color="green"
             onPress={() => {
               handleAddCategory();
               handleSetModalVisible();
@@ -134,7 +129,6 @@ const Categorias = () => {
         <Button
           title="Fechar"
           onPress={() => setEditVisible(false)}
-          color="red"
         />
         <View style={styles.modal}>
           <Text style={{ fontWeight: "bold", fontSize: 32 }}>
@@ -171,7 +165,6 @@ const Categorias = () => {
                 />
                 <Button
                   title="Remover Categoria"
-                  color="red"
                   onPress={() => {
                     handleRemoveCategory(index);
                   }}
