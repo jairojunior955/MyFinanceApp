@@ -1,8 +1,8 @@
-# Aplicativo de Controle de Gastos Pessoais
+# Aplicativo de Controle de Gastos Pessoais 💸
 
 Este aplicativo móvel desenvolvido em React-Native para Android permite aos usuários gerenciar seus gastos pessoais de maneira eficaz e intuitiva. Integrando-se com a API do Firebase, oferece funcionalidades robustas de persistência de dados e autenticação de usuários, assegurando uma experiência segura e confiável.
 
-## Funcionalidades
+## Funcionalidades 🧑‍💻
 
 ### Autenticação de Usuário
 - Cadastro, login e logout com autenticação Firebase.
@@ -31,12 +31,12 @@ Este aplicativo móvel desenvolvido em React-Native para Android permite aos usu
 ### Estatísticas
 - Tela dedicada à visualização estatística dos gastos, incluindo gráficos para uma análise mais aprofundada do comportamento de gasto do usuário.
 
-## Tecnologias Utilizadas
+## Tecnologias Utilizadas 🖥️
 
 - **React-Native:** Para o desenvolvimento da interface e lógica do aplicativo.
 - **Firebase:** Para autenticação de usuários e persistência de dados.
 
-## Segurança e Confiabilidade
+## Segurança e Confiabilidade 🔐
 
 Utilizando os serviços do Firebase, garantimos a segurança dos dados dos usuários e a confiabilidade do aplicativo, proporcionando uma experiência de usuário suave e sem preocupações.
 
