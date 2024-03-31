@@ -1,46 +1,46 @@
-# Mobile App for Personal Expense Management
+# Aplicativo Móvel para Controle de Gastos Pessoais
 
-This project aims to develop a mobile application using React-Native for Android devices, enabling users to manage their personal expenses efficiently. By leveraging the Firebase API for data persistence and user authentication, the app provides a secure and reliable platform for users to track and control their spending.
+Este projeto visa desenvolver um aplicativo móvel utilizando React-Native para dispositivos Android, permitindo aos usuários gerenciar seus gastos pessoais de maneira eficiente. Através da utilização da API do Firebase para persistência de dados e autenticação de usuários, o aplicativo oferece uma plataforma segura e confiável para que os usuários possam acompanhar e controlar seus gastos.
 
-## Features
+## Funcionalidades
 
-### User Authentication
-- Users can register, login, and logout using Firebase authentication services.
+### Autenticação de Usuário
+- Os usuários podem se cadastrar, fazer login e logout utilizando a autenticação fornecida pelo Firebase.
 
-### Expense Listing
-- View all registered expenses, including their descriptions, amounts, and categories.
+### Listagem de Gastos
+- Visualizar todos os gastos registrados, incluindo descrição, valor e categoria.
 
-### Add Expense
-- Users can add new expenses by specifying the description, amount, and selecting a predefined category.
-- Input validation is enforced; all fields are mandatory with the amount being strictly greater than R$0,00.
+### Adicionar Gasto
+- Os usuários podem adicionar novos gastos, especificando descrição, valor e selecionando uma categoria pré-estabelecida.
+- Validação de entrada é aplicada; todos os campos são obrigatórios e o valor deve ser estritamente maior que R$0,00.
 
-### Edit Expense
-- Existing expense records can be edited, allowing changes to descriptions, amounts, and categories.
+### Editar Gasto
+- É possível editar registros de gastos existentes, permitindo alterações em descrições, valores e categorias.
 
-### Remove Expense
-- Users have the option to delete unnecessary expenses from their records.
+### Remover Gasto
+- Os usuários podem excluir gastos desnecessários de seus registros.
 
-### Category Listing
-- Access a list of predefined categories to classify expenses, improving organization and analysis.
-- The app includes a static table of categories, with functionalities to add and edit new categories.
-- Three initial categories are set and cannot be modified by the user.
+### Listar Categorias
+- Acesso a uma lista de categorias pré-definidas para classificar os gastos, melhorando a organização e análise.
+- O aplicativo inclui uma tabela estática de categorias, com funcionalidades para adicionar e editar novas categorias.
+- Três categorias iniciais são definidas e não podem ser modificadas pelo usuário.
 
-### Drawer Navigation
-- Users can search for expenses using keywords or specific terms.
+### Navegação por Drawer
+- Os usuários podem buscar gastos utilizando palavras-chave ou termos específicos.
 
-### Expense Filtering and Search
-- Filter expenses based on various criteria like category, time period, or amount.
-- Search for expenses using keywords or specific terms.
+### Filtragem e Busca de Gastos
+- Filtrar gastos baseando-se em vários critérios como categoria, período de tempo ou valor.
+- Buscar por gastos utilizando palavras-chave ou termos específicos.
 
-### Statistics Screen
-- The app features a statistics screen displaying information such as total expenses, average spending by category, and graphical analysis of spending over time.
+### Tela Estatística
+- O aplicativo dispõe de uma tela de estatísticas que exibe informações como gastos totais, média de gastos por categoria e análise gráfica dos gastos ao longo do tempo.
 
-### Data Visualization
-- Display data using at least two different types of graphs.
+### Visualização de Informação
+- Exibir dados utilizando pelo menos dois tipos diferentes de gráficos.
 
-## Data Persistence and User Authentication
-- The app utilizes Firebase services for all operations related to data persistence and user authentication, ensuring security and reliability.
+## Persistência de Dados e Autenticação de Usuários
+- O aplicativo utiliza os serviços do Firebase para todas as operações relacionadas à persistência de dados e autenticação de usuários, garantindo segurança e confiabilidade.
 
-## Notes
-- Each functionality contributes 1.0 points towards the average grade for the first semester.
-- For students engaged in integrated projects, scoring extends from item 1 to item 7 in the feature list.
+## Notas
+- Cada funcionalidade contribui com 1,0 pontos para a média do primeiro semestre.
+- Para alunos que realizam projeto integrado, a pontuação vai do item 1 ao item 7 da lista de funcionalidades.
