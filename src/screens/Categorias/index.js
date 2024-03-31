@@ -2,6 +2,7 @@ import { getDatabase, ref, child, get, set } from "firebase/database";
 import { useEffect, useState } from "react";
 import { Button, Modal, StyleSheet, View, TextInput, Text  } from "react-native";
 import { auth } from "../../config/firebaseconfig";
+import Font from "../../../constants/Font";
 
 const Categorias = () => {
   const [nome, setNome] = useState("");
@@ -152,9 +153,9 @@ const Categorias = () => {
       <View>
         {list.map((item, index) => (
           <View key={index} style={styles.categoria}>
-            <Text>{item.nome}</Text>
+            <Text style={{fontFamily: Font['poppins-regular']}}>{item.nome}</Text>
             {item.canChange ? (
-              <View>
+              <View style={{gap:8}}>
                 <Button
                   title="Editar Categoria"
                   key={index}
@@ -190,17 +191,15 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     width: "100%",
-    borderColor: "#f92e6a",
-    borderWidth: 1,
     marginBottom: 8,
+    borderWidth: 1,
     padding: 8,
   },
   categoria: {
     flexDirection: "row",
     alignItems: "center",
     padding: 16,
-    borderWidth: 2,
-    borderColor: "#f92e6a",
+    borderWidth: 1,
     borderRadius: 16,
     justifyContent: "space-between",
     gap: 8,

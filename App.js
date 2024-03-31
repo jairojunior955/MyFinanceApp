@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./src/config/firebaseconfig";
 import Categorias from "./src/screens/Categorias";
+import { Graficos } from "./src/screens/Graficos";
+import { useFonts } from "expo-font";
+import fonts from "./src/config/fonts";
 
 const Drawer = createDrawerNavigator();
 const Finance = createDrawerNavigator();
@@ -16,13 +19,9 @@ const Finance = createDrawerNavigator();
 function FinanceDrawer() {
   return (
     <Finance.Navigator>
-      <Finance.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ headerTintColor: "#f92e6a" }}
-      />
       <Finance.Screen name="Gastos" component={Gastos} />
       <Finance.Screen name="Categorias" component={Categorias} />
+      <Finance.Screen name="Estatística" component={Graficos} />
     </Finance.Navigator>
   );
 }
@@ -35,7 +34,10 @@ export default function App() {
       setUser(user);
     });
   }, []);
-  return (
+  const [fontsLoaded] = useFonts(fonts);
+
+
+  return (!fontsLoaded ? null : (
     <NavigationContainer>
       <Drawer.Navigator>
         {user ? (
@@ -52,5 +54,5 @@ export default function App() {
         )}
       </Drawer.Navigator>
     </NavigationContainer>
-  );
+  ));
 }

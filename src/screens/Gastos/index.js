@@ -8,6 +8,7 @@ import {
   Modal,
   TextInput,
   SafeAreaView,
+  Pressable,
 } from "react-native";
 import { getDatabase, ref, set, get, child } from "firebase/database";
 import { auth } from "../../config/firebaseconfig";
@@ -15,6 +16,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { formatarData } from "../../utils/Date";
 import { Slider } from "@miblanchard/react-native-slider";
 import MaskInput, { Masks } from "react-native-mask-input";
+import Font from "../../../constants/Font";
 
 export function Gastos() {
   const [valor, setValor] = useState("");
@@ -188,9 +190,7 @@ export function Gastos() {
     date = new Date(date);
     const formattedStartDate = formatDate(startDate);
     const formattedEndDate = formatDate(endDate);
-    return (
-      date >= formattedStartDate && date <= formattedEndDate
-    );
+    return date >= formattedStartDate && date <= formattedEndDate;
   };
 
   const formatDate = (date) => {
@@ -208,6 +208,7 @@ export function Gastos() {
       <View contentContainerStyle={{ flexGrow: 1 }}>
         <Modal visible={visible} animationType="slide">
           <Button
+            fontFamily={Font["poppins-bold"]}
             title="Fechar"
             onPress={() => handleSetModalVisible()}
             color="red"
@@ -249,6 +250,7 @@ export function Gastos() {
               onChangeText={setDescricao}
             />
             <Button
+              style={styles.button}
               title="Adicionar Gasto"
               onPress={() => {
                 handleSetModalVisible();
@@ -259,6 +261,7 @@ export function Gastos() {
         </Modal>
 
         <Button
+          style={styles.button}
           title="Adicionar Gasto"
           onPress={() => {
             handleSetModalVisible();
@@ -328,16 +331,17 @@ export function Gastos() {
           mask={Masks.DATE_DDMMYYYY}
         />
 
-        <Text>
+        <Text style={{ fontFamily: Font["poppins-bold"] }}>
           Filtre por preço R${low} - R${high}
         </Text>
 
         <Button
+          style={styles.button}
           title="Filtrar"
           onPress={() => {
-            filterList(searchText, low, high, startDate,endDate);
+            filterList(searchText, low, high, startDate, endDate);
           }}
-        />
+        />    
 
         <Text style={{ fontSize: 16, fontWeight: "bold", color: "red" }}>
           {errorMessage}
@@ -349,15 +353,17 @@ export function Gastos() {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => (
             <View style={styles.gasto}>
-              <Text>Valor: {item.valor}</Text>
-              <Text>Categoria: {item.categoria}</Text>
-              <Text>Descrição: {item.descricao}</Text>
-              <Text>Criado às: {item.createdAt}</Text>
+              <Text style={{fontFamily: Font['poppins-regular']}}>Valor: {item.valor}</Text>
+              <Text style={{fontFamily: Font['poppins-regular']}}>Categoria: {item.categoria}</Text>
+              <Text style={{fontFamily: Font['poppins-regular']}}>Descrição: {item.descricao}</Text>
+              <Text style={{fontFamily: Font['poppins-regular']}}>Criado às: {item.createdAt}</Text>
               <Button
+                style={styles.button}
                 title="Editar Gasto"
                 onPress={() => handleSetEditGastoVisible(index)}
               />
               <Button
+                style={styles.button}
                 title="Remover Gasto"
                 onPress={() => handleRemoveGasto(index)}
               />
@@ -380,9 +386,9 @@ export function Gastos() {
 
         <Modal visible={visibleEdit} style={styles.modal}>
           <Button
+            style={styles.button}
             title="Fechar"
             onPress={() => handleSetEditGastoVisible()}
-            color="red"
           />
           <Text
             style={{
@@ -429,6 +435,7 @@ export function Gastos() {
             }}
           />
           <Button
+            fontFamily={Font["poppins-bold"]}
             title="Editar Gasto"
             onPress={() => {
               updateValuesDatabase();
@@ -455,6 +462,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 8,
     padding: 8,
+    fontFamily: Font["poppins-regular"],
   },
   gasto: {
     flexDirection: "column",
@@ -464,5 +472,9 @@ const styles = StyleSheet.create({
     borderColor: "#66645e",
     borderRadius: 32,
     gap: 4,
+    fontFamily: Font["poppins-bold"],
+  },
+  button: {
+    fontFamily: Font["poppins-bold"],
   },
 });

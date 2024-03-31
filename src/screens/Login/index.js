@@ -1,7 +1,11 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
-
+import { View, Text,TextInput, SafeAreaView, Pressable } from 'react-native'; 
+import Spacing from '../../../constants/Spacing';
+import FontSize from '../../../constants/FontSize';
+import Colors from '../../../constants/Colors';
+import Font from '../../../constants/Font';
+import Layout from '../../../constants/Layout';
 const Login = ({ setUser }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -24,47 +28,80 @@ const Login = ({ setUser }) => {
         });
     }
     return (
-        <View style={styles.container}>
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
-      />
-      <Button title="Sign In" onPress={handleLogin} />
-      <Text>{message}</Text>
-      <Text>{error}</Text>
-    </View>
+        <SafeAreaView>
+            <View style={{
+                padding: Spacing * 2,
+            }}>
+                <View style= {{
+                    alignItems: 'center',
+                }}>
+                    <Text style={{
+                        fontSize: FontSize.xLarge,
+                        color: Colors.primary,
+                        fontFamily: Font["Poppins-Bold"],
+                        marginVertical: Spacing * 3
+                    }}>
+                        Bem-vindo de volta!
+                    </Text>
+                </View>
+                <View style ={{
+                    marginVertical: Spacing * 3,
+
+                }}>
+                <TextInput
+                        placeholder="Email"
+                        placeholderTextColor={Colors.darkText}
+                        value={email}
+                        onChangeText={setEmail}
+                        style={{
+                            fontFamily: Font["poppins-regular"],
+                            fontSize: FontSize.small,
+                            padding: Spacing * 2,
+                            backgroundColor: Colors.lightPrimary,
+                            borderRadius: Spacing,
+                            marginVertical: Spacing,
+                        }}
+                    />
+                    <TextInput
+                        placeholder="Password"
+                        value={password}
+                        onChangeText={setPassword}
+                        secureTextEntry
+                        style={{
+                            fontFamily: Font["poppins-regular"],
+                            fontSize: FontSize.small,
+                            padding: Spacing * 2,
+                            backgroundColor: Colors.lightPrimary,
+                            borderRadius: Spacing,
+                            marginVertical: Spacing,
+                        }}
+                    />
+                </View>
+                <Pressable 
+                onPress={handleLogin}
+                style={{
+                    padding: Spacing * 2,
+                    backgroundColor: Colors.primary,
+                    marginVertical: Spacing * 3,
+                    borderRadius: Spacing,
+                    shadowColor: Colors.primary,
+                    shadowOffset: {
+                        width: 0,
+                        height: Spacing,
+                    },
+                    shadowOpacity: 0.3,
+                    shadowRadius: Spacing,
+                }}>
+                    <Text style={{
+                        fontFamily: Font["poppins-bold"],
+                        color: Colors.onPrimary,
+                        textAlign: 'center',
+                    }}>Logar</Text>
+                </Pressable>
+            </View>
+        </SafeAreaView>
     );
 };
 
 export default Login;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 16,
-    },
-    text: {
-        fontSize: 24,
-        fontWeight: "bold",
-        marginBottom: 16
-    },
-    input: {
-        height: 40,
-        width: "100%",
-        borderColor: "gray",
-        borderWidth: 1,
-        marginBottom: 8,
-        padding: 8,
-    },
-})                      
+        
