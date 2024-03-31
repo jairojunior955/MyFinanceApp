@@ -14,6 +14,7 @@ import { auth } from "../../config/firebaseconfig";
 import DropDownPicker from "react-native-dropdown-picker";
 import { formatarData } from "../../utils/Date";
 import { Slider } from "@miblanchard/react-native-slider";
+import MaskInput, { Masks } from "react-native-mask-input";
 
 export function Gastos() {
   const [valor, setValor] = useState("");
@@ -23,6 +24,8 @@ export function Gastos() {
   const [visible, setVisible] = useState(false);
   const [visibleEdit, setVisibleEdit] = useState(false);
   const [list, setList] = useState([]);
+  const [completeList, setCompleteList] = useState([]);
+
   useEffect(() => {
     getGastos();
     handleGetCategorias();
@@ -35,6 +38,7 @@ export function Gastos() {
       );
       if (snapshot.exists()) {
         setList(snapshot.val().list);
+        setCompleteList(snapshot.val().list);
       } else {
         console.log("No data available");
       }
@@ -99,7 +103,6 @@ export function Gastos() {
       return;
     }
     setVisibleEdit(true);
-    console.log(index);
     updateFormValues(index);
   };
 
@@ -156,29 +159,49 @@ export function Gastos() {
   };
 
   const [searchText, setSearchText] = useState("");
-  const filterList = (searchText,low, high) => {
-    console.log('texto ', searchText,"low ", low,"high", high)
-    if (searchText === "" && low === '' && high === '') {
-      getGastos();
-      return;
-    }
-    const filteredList = list.filter((item) => {
+  const filterList = (searchText, low, high, startDate, endDate) => {
+    // Convertendo low e high para números, tratando strings vazias como limites não definidos.
+    const lowNumber = low === "" ? Number.MIN_SAFE_INTEGER : Number(low);
+    const highNumber = high === "" ? Number.MAX_SAFE_INTEGER : Number(high);
+    console.log(lowNumber, highNumber, searchText);
+    // Verifica se low e high são números válidos, caso contrário, define-os para limites máximos/minimos.
+    const isLowValid = !isNaN(lowNumber);
+    const isHighValid = !isNaN(highNumber);
+
+    const filteredList = completeList.filter((item) => {
       const descricaoMatch = item.descricao
-      .toLowerCase()
-      .includes(searchText.toLowerCase());
+        .toLowerCase()
+        .includes(searchText.toLowerCase());
       const categoriaMatch = item.categoria
-      .toLowerCase()
-      .includes(searchText.toLowerCase());
-      const valueMatch = Number(item.valor) >= low && Number(item.valor) <= high;
-      console.log(item.valor, valueMatch)
-      return (descricaoMatch || categoriaMatch) && valueMatch;
+        .toLowerCase()
+        .includes(searchText.toLowerCase());
+      const valueMatch =
+        (isLowValid ? Number(item.valor) >= lowNumber : true) &&
+        (isHighValid ? Number(item.valor) <= highNumber : true);
+      const dateMatch = isDateInRange(item.createdAt, startDate, endDate);
+      return (descricaoMatch || categoriaMatch) && (valueMatch || dateMatch);
     });
-    
-    console.log(filteredList);
     setList(filteredList);
   };
-  const [high, setHigh] = useState(1);
-  const [low, setLow] = useState(0);
+
+  const isDateInRange = (date, startDate, endDate) => {
+    date = new Date(date);
+    const formattedStartDate = formatDate(startDate);
+    const formattedEndDate = formatDate(endDate);
+    return (
+      date >= formattedStartDate && date <= formattedEndDate
+    );
+  };
+
+  const formatDate = (date) => {
+    const [day, month, year] = date.split("/");
+    return new Date(`${day}-${month}-${year}`);
+  };
+  const [high, setHigh] = useState(null);
+  const [low, setLow] = useState(null);
+
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   return (
     <SafeAreaView>
@@ -260,9 +283,14 @@ export function Gastos() {
               keyboardType="numeric"
               value={low}
               onChangeText={(value) => {
-                  setLow(value);
-                  console.log('low', low)
-                
+                if (!isNaN(value)) setLow(value);
+              }}
+              style={{
+                borderColor: "black",
+                borderWidth: 1,
+                borderRadius: 8,
+                gap: 8,
+                padding: 8,
               }}
             ></TextInput>
             <TextInput
@@ -270,23 +298,54 @@ export function Gastos() {
               keyboardType="numeric"
               value={high}
               onChangeText={(value) => {
-                  setHigh(value);
-                  console.log('high', high)
+                if (!isNaN(value)) setHigh(value);
+              }}
+              style={{
+                borderColor: "black",
+                borderWidth: 1,
+                borderRadius: 8,
+                gap: 8,
+                padding: 8,
               }}
             ></TextInput>
-            <Button title='Filtrar' onPress={()=> {filterList(searchText, low, high)}}/>
           </View>
-          <Text>
-            Filtre por preço R${low} - R${high}
-          </Text>
         </View>
+        <MaskInput
+          value={startDate}
+          onChangeText={(masked) => {
+            setStartDate(masked);
+          }}
+          placeholder="Data Inicial dd/mm/aaaa)"
+          mask={Masks.DATE_DDMMYYYY}
+        />
+
+        <MaskInput
+          value={endDate}
+          onChangeText={(masked) => {
+            setEndDate(masked);
+          }}
+          placeholder="Data Final (dd/mm/aaaa)"
+          mask={Masks.DATE_DDMMYYYY}
+        />
+
+        <Text>
+          Filtre por preço R${low} - R${high}
+        </Text>
+
+        <Button
+          title="Filtrar"
+          onPress={() => {
+            filterList(searchText, low, high, startDate,endDate);
+          }}
+        />
+
         <Text style={{ fontSize: 16, fontWeight: "bold", color: "red" }}>
           {errorMessage}
         </Text>
         <FlatList
           data={list}
           scrollEnabled={true}
-          ListFooterComponent={<View style={{ height: 300 }} />}
+          ListFooterComponent={<View style={{ height: 560 }} />}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => (
             <View style={styles.gasto}>
@@ -402,7 +461,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 16,
     borderWidth: 1,
-    borderColor: "#f92e6a",
+    borderColor: "#66645e",
     borderRadius: 32,
     gap: 4,
   },
